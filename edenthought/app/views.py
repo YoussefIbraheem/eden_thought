@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 @login_required(login_url='login_user')
 def home(request):
     
@@ -16,7 +16,8 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            messages.success(request,"User Created!")
+            return redirect("login_user")
     context = {"form": form}
     return render(request, "register.html", context)
 
