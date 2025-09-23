@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %} 
-{% block title %} Create New Thought {% endblock %}
+{% block title %} Update Thought {% endblock %}
 
 {% block content %}
 
-<form action="{% url "create_thought" %}" autocomplete="false" method="post">
+<form action="{% url "update_thought" pk %}" autocomplete="false" method="post">
     {% for error in form.errors  %}
         <div class="alert alert-danger">
             <span>{{ error }}</span>
         </div>
     {% endfor %}
     {% csrf_token %}
+    {{form.id}}
     {{ form|crispy }}
-    <button class="btn btn-primary" type="submit">Create</button>
+    <button class="btn btn-primary" type="submit">Update</button>
 </form>
 
 
