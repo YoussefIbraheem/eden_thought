@@ -1,10 +1,38 @@
 {% extends 'base.html' %}
-
 {% block title %}Home - My Django App{% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <h1 class="display-4">Welcome to My Django App</h1>
-    <p class="lead">This is the homepage of your project.</p>
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Welcome to My Thoughts</h1>
+        <p class="lead text-muted">A space to read and share reflections, ideas, and inspirations.</p>
+    </div>
+
+    <!-- Thoughts Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- Example Thought Card -->
+            {% for thought in thoughts %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">{{ thought.title }}</h4>
+                    <p class="card-text text-muted small">
+                        Posted by {{ thought.user }} • {{ thought.date_posted|date:"M d, Y" }}
+                    </p>
+                    <p class="card-text">{{ thought.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info text-center">
+                No thoughts yet. Be the first to share one!
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
 </div>
 {% endblock %}
