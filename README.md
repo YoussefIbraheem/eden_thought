@@ -25,7 +25,7 @@ It’s a lightweight web app where users can register, log in, and share their t
 
 ## 📂 Project Structure
 
-```
+```markdown
 
 EdenThought/
 │
