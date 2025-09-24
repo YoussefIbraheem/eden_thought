@@ -75,5 +75,16 @@ def update_thought(request, pk):
             return redirect("home")
     else:
         form = ThoughtForm(instance=thought)
-        context = {"form": form , "pk": thought.id}
+        context = {"form": form, "pk": thought.id}
         return render(request, "update_thought.html", context)
+
+
+def delete_thought(request, pk):
+    thought = Thought.objects.get(id=pk, user=request.user)
+
+    if request.method == "POST":
+        thought.delete()
+        return redirect("home")
+    else:
+        context = {"thought":thought}
+        return render(request, "delete_confirmation.html", context)

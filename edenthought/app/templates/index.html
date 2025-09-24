@@ -24,7 +24,10 @@
                     </p>
                     <p class="card-text">{{ thought.content }}</p>
                 </div>
-                <a class="btn btn-warning" href="{% url "update_thought" thought.id  %}">Update</a>
+                <div class="d-flex justify-content-around p-3">
+                 <a class="btn btn-warning" href="{% url "update_thought" thought.id  %}">Update</a>
+                 <a class="btn btn-danger" href="{% url "delete_thought" thought.id  %}">Delete</a>
+                </div>    
             </div>
             {% empty %}
             <div class="alert alert-info text-center">
