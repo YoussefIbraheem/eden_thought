@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm , AuthenticationForm , UserChangeForm
 from django import forms
 from django.contrib.auth.models import User
 from .models import Thought
@@ -25,5 +25,13 @@ class ThoughtForm(forms.ModelForm):
         model = Thought
         fields = ["title", "content"]
         exclude = ["user"]
-        
+
+
+class UpdateUserForm(forms.ModelForm):
+    password = None
+    
+    class Meta:
+        model = User
+        fields = ["username" , "email"]
+        exclude = ["password1" , "password2"]        
     

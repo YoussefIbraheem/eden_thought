@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm, ThoughtForm
+from .forms import RegisterForm, LoginForm, ThoughtForm, UpdateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -79,6 +79,7 @@ def update_thought(request, pk):
         return render(request, "update_thought.html", context)
 
 
+@login_required(login_url="login_user")
 def delete_thought(request, pk):
     thought = Thought.objects.get(id=pk, user=request.user)
 
@@ -86,5 +87,20 @@ def delete_thought(request, pk):
         thought.delete()
         return redirect("home")
     else:
-        context = {"thought":thought}
+        context = {"thought": thought}
         return render(request, "delete_confirmation.html", context)
+
+
+@login_required(login_url="login_user")
+def update_user(request):
+    user = request.user
+    if request.method == "POST":
+        form = UpdateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    else:
+        form = UpdateUserForm(instance=user)
+        context = {"form": form}
+        return render(request , "update_user.html", context)
+
