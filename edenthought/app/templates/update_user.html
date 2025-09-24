@@ -1,26 +1,38 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% block title %}Update Profile - EdenThought{% endblock %}
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
+{% block title %}Update Profile - EdenThought{% endblock %} 
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Update Profile</h4>
-            </div>
-            <div class="card-body">
-                <form method="post" action="{% url 'update_user' %}">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Update Profile</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" action="{% url 'update_user' %}">
+          {% csrf_token %} {{ form|crispy }}
+          <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+<div class="row justify-content-center py-5">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Danger Zone!</h4>
+      </div>
+      <div class="card-body">
+        <a class="btn btn-danger" href="{% url 'delete_user' %}"
+          >Delete My Profile</a
+        >
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

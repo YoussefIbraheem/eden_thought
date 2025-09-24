@@ -88,7 +88,7 @@ def delete_thought(request, pk):
         return redirect("home")
     else:
         context = {"thought": thought}
-        return render(request, "delete_confirmation.html", context)
+        return render(request, "delete_thought_confirmation.html", context)
 
 
 @login_required(login_url="login_user")
@@ -104,3 +104,13 @@ def update_user(request):
         context = {"form": form}
         return render(request , "update_user.html", context)
 
+
+@login_required(login_url="login_user")
+def delete_user(request):
+    user = request.user
+    if request.method == "POST":
+            user.delete()
+            return redirect("home")
+    else:
+        context = {"user": user}
+        return render(request , "delete_user_confirmation.html", context)
