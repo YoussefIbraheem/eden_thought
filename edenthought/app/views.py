@@ -3,7 +3,7 @@ from .forms import RegisterForm, LoginForm, ThoughtForm, UpdateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Thought
+from .models import Thought, Profile
 
 
 @login_required(login_url="login_user")
@@ -19,7 +19,12 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
+            new_user = form.save(commit=False)
+            profile = Profile.objects.create(user=new_user)
+
+            profile.save()
             form.save()
+
             messages.success(request, "User Created!")
             return redirect("login_user")
     context = {"form": form}
@@ -102,15 +107,15 @@ def update_user(request):
     else:
         form = UpdateUserForm(instance=user)
         context = {"form": form}
-        return render(request , "update_user.html", context)
+        return render(request, "update_user.html", context)
 
 
 @login_required(login_url="login_user")
 def delete_user(request):
     user = request.user
     if request.method == "POST":
-            user.delete()
-            return redirect("home")
+        user.delete()
+        return redirect("home")
     else:
         context = {"user": user}
-        return render(request , "delete_user_confirmation.html", context)
+        return render(request, "delete_user_confirmation.html", context)

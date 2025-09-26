@@ -11,4 +11,10 @@ class Thought(models.Model):
     
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     
+
+
+class Profile(models.Model):
     
+    profile_picture = models.ImageField(blank=True,null=True,default='default/default.png')
+    
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
