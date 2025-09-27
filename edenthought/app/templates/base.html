@@ -36,6 +36,9 @@
               <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
             </li>
             <li class="nav-item">
+              <img src="{{ user.profile_set.first }}" alt="Profile Picture" class="rounded-circle" width="30" height="30">
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'create_thought' %}"
                 >Create Thought</a
               >

@@ -15,6 +15,10 @@ class Thought(models.Model):
 
 class Profile(models.Model):
     
-    profile_picture = models.ImageField(blank=True,null=True,default='default/default.png')
+    profile_picture = models.ImageField(blank=True,null=True,default="defaults/user.png",upload_to="profiles/")
     
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.profile_picture.url
+

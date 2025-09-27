@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm, ThoughtForm, UpdateUserForm
+from .forms import RegisterForm, LoginForm, ThoughtForm, UpdateUserForm, ProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,21 +14,21 @@ def home(request):
 
 
 def register(request):
-
-    form = RegisterForm()
     if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            new_user = form.save(commit=False)
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            new_user = register_form.save()
             profile = Profile.objects.create(user=new_user)
-
-            profile.save()
-            form.save()
-
+            profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+            if profile_form.is_valid():
+                profile_form.save()
             messages.success(request, "User Created!")
             return redirect("login_user")
-    context = {"form": form}
-    return render(request, "register.html", context)
+    else:
+        register_form = RegisterForm()
+        profile_form = ProfileForm()
+        context = {"forms": [register_form, profile_form]}
+        return render(request, "register.html", context)
 
 
 def login_user(request):
