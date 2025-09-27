@@ -99,14 +99,20 @@ def delete_thought(request, pk):
 @login_required(login_url="login_user")
 def update_user(request):
     user = request.user
+    user_profile = Profile.objects.get(user=user)
     if request.method == "POST":
-        form = UpdateUserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
+        user_form = UpdateUserForm(request.POST, instance=user)
+        if user_form.is_valid():
+            profile_form = ProfileForm(
+                request.POST, request.FILES, instance=user_profile
+            )
+            profile_form.save()
+            user_form.save()
             return redirect("home")
     else:
-        form = UpdateUserForm(instance=user)
-        context = {"form": form}
+        user_form = UpdateUserForm(instance=user)
+        profile_form = ProfileForm(instance=user_profile)
+        context = {"forms": [user_form, profile_form]}
         return render(request, "update_user.html", context)
 
 
