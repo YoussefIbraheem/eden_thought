@@ -96,6 +96,18 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
+# SMTP Email Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server host
+EMAIL_PORT = 587  # SMTP server port (587 for TLS, 465 for SSL)
+EMAIL_USE_TLS = True  # True for TLS, False for SSL
+EMAIL_HOST_USER = 'jo.mohsen2@gmail.com'  # SMTP server username
+EMAIL_HOST_PASSWORD = 'ctvb psfh kziq joye'  # SMTP server password
+EMAIL_USE_SSL = False  # Set to True if using SSL
+DEFAULT_FROM_EMAIL = 'jo.mohsen2@gmail.com'  # Default sender email address
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
